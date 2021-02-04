@@ -1,7 +1,6 @@
 // INCLUDED LIBRARIES
 #include <Arduino.h>
 
-
 // DEFINITIIONS --------------------------------------------------------
 #define INDEX_PULSE 21
 #define Encoder_A 23
@@ -39,13 +38,10 @@ volatile int averageCount;
 // output voltage duty cycle variable
 volatile unsigned char inDutyCycle = 0;
 
-//-----------------------------------------------------------------------
-/* Function:  Increment or Decrement Encoder Count - ISR
- * --------------------
- * Reads increment or decrement of the encoder signal to 
- * increment or decrement the current angle (using degperpulse)
+/**
+ * @brief Reads the increment or decrement of the encoder signal to adjust
+ * the current angle accordingly (using degperpulse). Modifies global variables. (ISR)
  * 
- *  returns: void (Modifies global variables)
  */
 void GetIncrement() {
     aState = digitalRead(Encoder_A);
@@ -69,13 +65,10 @@ void GetIncrement() {
   lastState = aState;
 }
 
-//-----------------------------------------------------------------------
-/* Function:  Calculate Rotational Velocity - ISR
- * --------------------
- * Calculates a new angular velocity for the last 100ms
- * and averages the last 10 values
+/**
+ * @brief Calculates a new angular velocity for the last 100ms and
+ * averages the last 10 values. Modifies global variables. (ISR)
  * 
- *  returns: void (Modifies global variables)
  */
 void GetSpeed(){
 
@@ -104,7 +97,12 @@ void GetSpeed(){
     cyclesPerSecond = averageVelocity / 360.00;
 }
 
-
+/**
+ * @brief Sets the duty cycle of the forward or backwards movement pins.
+ * 
+ * @param dutyCycle The target duty cycle
+ * @param isForward Flag indicating whether the target cranking direction is forward
+ */
 void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
     // cap the duty cycle at the maximum value
     if(dutyCycle > MAX_TRIGGER_DUTY_CYCLE) 
@@ -122,12 +120,9 @@ void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
     }
 }
 
-//-----------------------------------------------------------------------
-/* Function:  Initial setup
- * --------------------
- * Setup function, run once upon startup
+/**
+ * @brief Setup function that runs once upon startup
  * 
- *  returns: void
  */
 void setup() {
 
@@ -163,12 +158,9 @@ void setup() {
     Serial.begin(115200);
 }
 
-//-----------------------------------------------------------------------
-/* Function:  MAIN LOOP
- * --------------------
- * Main loop of code
+/**
+ * @brief Main execution loop.
  * 
- *  returns: void
  */
 void loop() {
     // to write an analog voltage out, we can use
