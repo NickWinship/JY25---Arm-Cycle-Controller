@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=NetJIMU_1 Pin=Encoder-4
+Removed Pin From Net: NetName=NetJIMU_1 Pin=U-3.3V_2
+Change Component Designator: OldDesignator=Encoder NewDesignator=PEncoder
+Change Component Description : Designator=U Old Description=RT1062 Teensy 4.0 i.MX ARM?? Cortex??-M7 MPU Embedded Evaluation Board New Description=RT1062 Teensy 4.0 i.MX ARM?? Cortex??-M7 MPU Embedded Evaluation Board
+Added Pin To Net: NetName=NetJIMU_1 Pin=U-VIN
+Added Pin To Net: NetName=NetPEncoder_4 Pin=PEncoder-4
+Added Pin To Net: NetName=NetPEncoder_4 Pin=U-3.3V_2
+Added Net: Name=NetPEncoder_4
+Added Room: Name=Sheet1

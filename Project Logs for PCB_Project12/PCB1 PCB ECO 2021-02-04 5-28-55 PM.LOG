@@ -1,0 +1,329 @@
+Removed Pin From Net: NetName=GND Pin=Encoder-1
+Change Component Designator: OldDesignator=IMU NewDesignator=JIMU
+Added Component: Designator=JEncoder(SMTC-SSQ-105-02-X-S-RA)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.samtec.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.samtec.com/documents/webfiles/pdf/SSQ_TH.PDF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3Description"; Value = "Package Specification"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3URL"; Value = "http://www.samtec.com/documents/webfiles/cpdf/SSQ-1XX-XX-XXX-X-XX-XXX-XX-X-MKT.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "F-214"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Samtec"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Technology"; Value = "Through-hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Right Angle"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Assembly, Socket Strip .025[0.64] SQ Tail"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SSQ-105-02-X-S-RA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "BD, 6/1987"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PartNumber"; Value = "SSQ-105-02-T-S-RA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "2.54 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "True"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Range"; Value = "-55 to 105 degC"; VariantName = "[No Variations]"
+Added Component: Designator=JJoystick(CUI_SJ-43516-SMT-BE)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "CUI Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SJ-43516-SMT-TR-BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/SJ-43516-SMT-TR-BE/CUI%20Devices/view-part/490913/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=JLeftTrigger(CUI_SJ-43516-SMT-BE)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "CUI Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SJ-43516-SMT-TR-BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/SJ-43516-SMT-TR-BE/CUI%20Devices/view-part/490913/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=JRightTrigger(CUI_SJ-43516-SMT-BE)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "CUI Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SJ-43516-SMT-TR-BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/SJ-43516-SMT-TR-BE/CUI%20Devices/view-part/490913/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=RJ1 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RJ2 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RJ3 10k(FP-RN732B-IPC_B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "5000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "10kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "10ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.5%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RJ4 10k(FP-RN732B-IPC_B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "5000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "10kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "10ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.5%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RL1 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RL2 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RL3 10k(FP-RN732B-IPC_B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "5000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "10kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "10ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.5%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RR1 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RR2 1k(FP-RN732B-IPC_C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "1kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "25ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating (DC)"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Weight"; Value = "0.000571oz"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Component: Designator=RR3 10k(FP-RN732B-IPC_B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Case/Package"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Imperial)"; Value = "1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case Code (Metric)"; Value = "3216"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Composition"; Value = "Thin Film"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "125°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-55°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "5000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Rating"; Value = "125mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "10kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "10ppm/°„C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "0.5%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "1.6mm"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=JEncoder-1
+Added Pin To Net: NetName=GND Pin=RJ2 1k-2
+Added Pin To Net: NetName=GND Pin=RJ3 10k-2
+Added Pin To Net: NetName=GND Pin=RJ4 10k-2
+Added Pin To Net: NetName=GND Pin=RL2 1k-2
+Added Pin To Net: NetName=GND Pin=RL3 10k-2
+Added Pin To Net: NetName=GND Pin=RR2 1k-2
+Added Pin To Net: NetName=GND Pin=RR3 10k-2
+Added Pin To Net: NetName=NetJEncoder_2 Pin=JEncoder-2
+Added Pin To Net: NetName=NetJEncoder_2 Pin=U-21
+Added Net: Name=NetJEncoder_2
+Added Pin To Net: NetName=NetJEncoder_3 Pin=JEncoder-3
+Added Pin To Net: NetName=NetJEncoder_3 Pin=U-23
+Added Net: Name=NetJEncoder_3
+Added Pin To Net: NetName=NetJEncoder_4 Pin=JEncoder-4
+Added Pin To Net: NetName=NetJEncoder_4 Pin=U-3.3V_2
+Added Net: Name=NetJEncoder_4
+Added Pin To Net: NetName=NetJEncoder_5 Pin=JEncoder-5
+Added Pin To Net: NetName=NetJEncoder_5 Pin=U-22
+Added Net: Name=NetJEncoder_5
+Added Pin To Net: NetName=NetJIMU_3 Pin=JIMU-3
+Added Pin To Net: NetName=NetJIMU_3 Pin=U-19
+Added Net: Name=NetJIMU_3
+Added Pin To Net: NetName=NetJIMU_4 Pin=JIMU-4
+Added Pin To Net: NetName=NetJIMU_4 Pin=U-18
+Added Net: Name=NetJIMU_4
+Added Pin To Net: NetName=NetJJoystick_1 Pin=JJoystick-1
+Added Pin To Net: NetName=NetJJoystick_1 Pin=RJ1 1k-1
+Added Net: Name=NetJJoystick_1
+Added Pin To Net: NetName=NetJJoystick_2 Pin=JJoystick-2
+Added Pin To Net: NetName=NetJJoystick_2 Pin=RJ3 10k-1
+Added Pin To Net: NetName=NetJJoystick_2 Pin=U-8
+Added Net: Name=NetJJoystick_2
+Added Pin To Net: NetName=NetJJoystick_3 Pin=JJoystick-3
+Added Pin To Net: NetName=NetJJoystick_3 Pin=RJ4 10k-1
+Added Pin To Net: NetName=NetJJoystick_3 Pin=U-7
+Added Net: Name=NetJJoystick_3
+Added Pin To Net: NetName=NetJJoystick_4 Pin=JJoystick-4
+Added Pin To Net: NetName=NetJJoystick_4 Pin=RJ2 1k-1
+Added Net: Name=NetJJoystick_4
+Added Pin To Net: NetName=NetJLeftTrigger_1 Pin=JLeftTrigger-1
+Added Pin To Net: NetName=NetJLeftTrigger_1 Pin=RL1 1k-1
+Added Net: Name=NetJLeftTrigger_1
+Added Pin To Net: NetName=NetJLeftTrigger_2 Pin=JLeftTrigger-2
+Added Pin To Net: NetName=NetJLeftTrigger_2 Pin=RL3 10k-1
+Added Pin To Net: NetName=NetJLeftTrigger_2 Pin=U-5
+Added Net: Name=NetJLeftTrigger_2
+Added Pin To Net: NetName=NetJLeftTrigger_4 Pin=JLeftTrigger-4
+Added Pin To Net: NetName=NetJLeftTrigger_4 Pin=RL2 1k-1
+Added Net: Name=NetJLeftTrigger_4
+Added Pin To Net: NetName=NetJRightTrigger_1 Pin=JRightTrigger-1
+Added Pin To Net: NetName=NetJRightTrigger_1 Pin=RR1 1k-1
+Added Net: Name=NetJRightTrigger_1
+Added Pin To Net: NetName=NetJRightTrigger_2 Pin=JRightTrigger-2
+Added Pin To Net: NetName=NetJRightTrigger_2 Pin=RR3 10k-1
+Added Pin To Net: NetName=NetJRightTrigger_2 Pin=U-11
+Added Net: Name=NetJRightTrigger_2
+Added Pin To Net: NetName=NetJRightTrigger_4 Pin=JRightTrigger-4
+Added Pin To Net: NetName=NetJRightTrigger_4 Pin=RR2 1k-1
+Added Net: Name=NetJRightTrigger_4
+Added Pin To Net: NetName=NetRJ1 1k_2 Pin=RJ1 1k-2
+Added Pin To Net: NetName=NetRJ1 1k_2 Pin=U-6
+Added Net: Name=NetRJ1 1k_2
+Added Pin To Net: NetName=NetRL1 1k_2 Pin=RL1 1k-2
+Added Pin To Net: NetName=NetRL1 1k_2 Pin=U-3
+Added Net: Name=NetRL1 1k_2
+Added Pin To Net: NetName=NetRR1 1k_2 Pin=RR1 1k-2
+Added Pin To Net: NetName=NetRR1 1k_2 Pin=U-9
+Added Net: Name=NetRR1 1k_2
+Added Member To Class: ClassName=Sheet1 Member=Component JEncoder SSQ-105-02-T-S-RA
+Added Member To Class: ClassName=Sheet1 Member=Component JIMU 61300811821
+Added Member To Class: ClassName=Sheet1 Member=Component JJoystick SJ-43516-SMT-BE
+Added Member To Class: ClassName=Sheet1 Member=Component JLeftTrigger SJ-43516-SMT-BE
+Added Member To Class: ClassName=Sheet1 Member=Component JRightTrigger SJ-43516-SMT-BE
+Added Member To Class: ClassName=Sheet1 Member=Component RJ1 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RJ2 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RJ3 10k RN732BTTD1002D10
+Added Member To Class: ClassName=Sheet1 Member=Component RJ4 10k RN732BTTD1002D10
+Added Member To Class: ClassName=Sheet1 Member=Component RL1 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RL2 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RL3 10k RN732BTTD1002D10
+Added Member To Class: ClassName=Sheet1 Member=Component RR1 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RR2 1k RN732BTTDK1001B25
+Added Member To Class: ClassName=Sheet1 Member=Component RR3 10k RN732BTTD1002D10
+Added Room: Name=Sheet1
