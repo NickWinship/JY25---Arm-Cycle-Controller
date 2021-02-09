@@ -12,11 +12,17 @@
 #define VELOCITIES_TO_AVERAGE 20
 #define ONE_SECOND  1000000       // (1sec in microseconds)
 
-#define RB_PIN PIND3
-#define LB_PIN PIND2
-#define ANALOG_REF_PIN PIND4
+/* PIN DEFINITIONS */
+#define ANALOG_REF_PIN PIND3
+#define RB_PIN PIND4
+#define LB_PIN PIND5
+#define JOYSTICK_X_PIN PIND6
+#define JOYSTICK_Y_PIN PIND7
 
-#define MAX_TRIGGER_DUTY_CYCLE 65
+#define MAX_DUTY_CYCLE 65
+#define JOYSTICK_CENTER_DUTY_CYCLE 26
+#define JOYSTICK_LEFT_MAX_DUTY_CYCLE 23
+#define JOYSTICK_RIGHT_MIN_DUTY_CYCLE 29
 
 // TIMER OBJECTS -------------------------------------------------------
 IntervalTimer encoderTimer;
@@ -55,7 +61,7 @@ void GetIncrement() {
             encoderAngle += degPerPulse;  // increment counter
             digitalWrite(LED_Pin, HIGH);
         }
-        else{
+        else {
             encoderAngle -= degPerPulse;  // decrtement counter
             digitalWrite(LED_Pin, LOW);
         }
@@ -105,8 +111,8 @@ void GetSpeed(){
  */
 void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
     // cap the duty cycle at the maximum value
-    if(dutyCycle > MAX_TRIGGER_DUTY_CYCLE) 
-        dutyCycle = MAX_TRIGGER_DUTY_CYCLE;
+    if(dutyCycle > MAX_DUTY_CYCLE) 
+        dutyCycle = MAX_DUTY_CYCLE;
 
     if(isForward) {
         // output voltage to pin connected to RB trigger 
@@ -121,6 +127,40 @@ void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
 }
 
 /**
+ * @brief Set the direction and magnitude of the simulated joystick's movement.
+ * 
+ * @param dutyCycle The target duty cycle
+ * @param direction The joystick direction. Center is 0, left is 1 and right is 2.
+ */
+void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
+    // check whether a valid direction was specified
+    if(direction < 0 || direction > 2) return;
+
+    // cap the duty cycle at the maximum value
+    if(dutyCycle > MAX_DUTY_CYCLE) 
+        dutyCycle = MAX_DUTY_CYCLE;
+
+    // set the duty cycle according to the direction specified
+    if(direction == 0) {
+        analogWrite(JOYSTICK_X_PIN, (int)JOYSTICK_CENTER_DUTY_CYCLE);
+    }
+    else if(direction == 1) {
+        // enforce the upper bound of the joystick x-axis left voltage range
+        if(dutyCycle > JOYSTICK_LEFT_MAX_DUTY_CYCLE) 
+            dutyCycle = JOYSTICK_LEFT_MAX_DUTY_CYCLE;
+
+        analogWrite(JOYSTICK_X_PIN, (int)dutyCycle);
+    }
+    else {
+        // enforce the lower bound of the
+        if(dutyCycle < JOYSTICK_RIGHT_MIN_DUTY_CYCLE)
+            dutyCycle = JOYSTICK_RIGHT_MIN_DUTY_CYCLE;
+        
+        analogWrite(JOYSTICK_X_PIN, dutyCycle);
+    }
+}
+
+/**
  * @brief Setup function that runs once upon startup
  * 
  */
@@ -129,21 +169,24 @@ void setup() {
     // configure output pins
     pinMode(RB_PIN, OUTPUT);
     pinMode(LB_PIN, OUTPUT);
+    pinMode(JOYSTICK_X_PIN, OUTPUT);
+    pinMode(JOYSTICK_Y_PIN, OUTPUT);
     pinMode(ANALOG_REF_PIN, OUTPUT);
-
-    digitalWrite(RB_PIN, HIGH);
     
     SetCrankingSpeedDirection(0, true);
 
     // output 1.8V out of the analog reference voltage pin
-    analogWrite(ANALOG_REF_PIN, MAX_TRIGGER_DUTY_CYCLE);
+    analogWrite(ANALOG_REF_PIN, MAX_DUTY_CYCLE);
+
+    // put the y-axis of the joystick in the center position
+    analogWrite(JOYSTICK_Y_PIN, JOYSTICK_CENTER_DUTY_CYCLE);
 
     // set Teensy 4.0 pins:
     pinMode(Encoder_A, INPUT);  // encoder channel A
     pinMode(Encoder_B, INPUT);  // encoder channel B
     pinMode(LED_Pin, OUTPUT);           // on board LED
 
-    // initialize global variabls:
+    // initialize global variables
     encoderAngle = 0.0;                 // initialize encoder angle
     lastAngle = 0.0;                    // initialize encoder angle
     averageCount = 0.0;                 // initialize the average count for velocity
@@ -174,8 +217,8 @@ void loop() {
     //     newDutyCycle = Serial.parseInt();
 
     //     if(newDutyCycle > 0) {
-    //         inDutyCycle = newDutyCycle > MAX_TRIGGER_DUTY_CYCLE ? MAX_TRIGGER_DUTY_CYCLE : newDutyCycle;
-    //         Serial.println("You entered " + String(inDutyCycle) + ". Max is " + String(MAX_TRIGGER_DUTY_CYCLE) + ".");
+    //         inDutyCycle = newDutyCycle > MAX_DUTY_CYCLE ? MAX_DUTY_CYCLE : newDutyCycle;
+    //         Serial.println("You entered " + String(inDutyCycle) + ". Max is " + String(MAX_DUTY_CYCLE) + ".");
     //         SetCrankingSpeedDirection((unsigned char)inDutyCycle, true);
     //     }
     // }
