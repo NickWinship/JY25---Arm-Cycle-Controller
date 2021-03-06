@@ -4,37 +4,40 @@
 
 // DEFINITIIONS ---------------------------------------------------------
 #define INDEX_PULSE 21
-#define Encoder_A 23
-#define Encoder_B 22
-#define LED_Pin 13
+#define ENCODER_PIN_A 23
+#define ENCODER_PIN_B 22
+#define LED_PIN 13
 
 /* PIN DEFINITIONS */
-#define ANALOG_REF_PIN PIND3
-#define RB_PIN PIND4
-#define LB_PIN PIND5
-#define JOYSTICK_X_PIN PIND6
-#define JOYSTICK_Y_PIN PIND7
+#define RT_REF_PIN PIND3
+#define LT_REF_PIN PIND4
+#define JOYSTICK_REF_PIN PIND5
+
+#define LB_PIN PIND6
+#define RB_PIN PIND7
+#define JOYSTICK_X_PIN 8
+#define JOYSTICK_Y_PIN 9
 
 #define MAX_DUTY_CYCLE 65
 #define JOYSTICK_CENTER_DUTY_CYCLE 26
 #define JOYSTICK_LEFT_MAX_DUTY_CYCLE 23
 #define JOYSTICK_RIGHT_MIN_DUTY_CYCLE 29
 
+/* CONSTANTS */
+#define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
+#define PPR_ARM_CYCLE PPR*3
+#define ONE_SECOND_MICRO  1000000.00    // (1sec in microseconds)
+
 // TIMER OBJECTS -------------------------------------------------------
 IntervalTimer encoderTimer;
 IntervalTimer speedTimer;
-#define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
-#define PPR_ARM_CYCLE PPR*3
-#define ONE_SECOND  1000000.00    // (1sec in microseconds)
 
 // ENCODER OBJECTS ------------------------------------------------------
-Encoder ArmCycle(Encoder_A, Encoder_B);
-
-// TIMER OBJECTS --------------------------------------------------------
+Encoder ArmCycle(ENCODER_PIN_A, ENCODER_PIN_B);
 elapsedMicros sinceEncoderUpdate;
 
-// GLOBAL VARIABELS -----------------------------------------------------
-long position  = -999;
+// GLOBAL VARIABLES -----------------------------------------------------
+volatile long encoderPosition  = -999;
 
 /**
  * @brief Sets the duty cycle of the forward or backwards movement pins.
@@ -100,26 +103,33 @@ void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
 void setup() {
 
     // configure output pins
+    pinMode(RT_REF_PIN, OUTPUT);
+    pinMode(LT_REF_PIN, OUTPUT);
+    pinMode(JOYSTICK_REF_PIN, OUTPUT);
+
     pinMode(RB_PIN, OUTPUT);
     pinMode(LB_PIN, OUTPUT);
     pinMode(JOYSTICK_X_PIN, OUTPUT);
     pinMode(JOYSTICK_Y_PIN, OUTPUT);
-    pinMode(ANALOG_REF_PIN, OUTPUT);
     
+    // set the initial cranking speed to 0
     SetCrankingSpeedDirection(0, true);
 
-    // output 1.8V out of the analog reference voltage pin
-    analogWrite(ANALOG_REF_PIN, MAX_DUTY_CYCLE);
+    // output 1.8V out of the analog reference voltage pins
+    analogWrite(RT_REF_PIN, MAX_DUTY_CYCLE);
+    analogWrite(LT_REF_PIN, MAX_DUTY_CYCLE);
+    analogWrite(JOYSTICK_REF_PIN, MAX_DUTY_CYCLE);
 
-    // put the y-axis of the joystick in the center position
+    // put the the joystick in the center position
+    analogWrite(JOYSTICK_X_PIN, JOYSTICK_CENTER_DUTY_CYCLE);
     analogWrite(JOYSTICK_Y_PIN, JOYSTICK_CENTER_DUTY_CYCLE);
 
-    // set Teensy 4.0 pins:
-    pinMode(Encoder_A, INPUT);  // encoder channel A
-    pinMode(Encoder_B, INPUT);  // encoder channel B
-    pinMode(LED_Pin, OUTPUT);           // on board LED
+    // set Teensy 4.0 pins
+    pinMode(ENCODER_PIN_A, INPUT);  // encoder channel A
+    pinMode(ENCODER_PIN_B, INPUT);  // encoder channel B
+    pinMode(LED_PIN, OUTPUT);           // on board LED
 
-    // initialize serial communication at 115200 bits per second:
+    // initialize serial communication at 115200 bits per second
     Serial.begin(115200);
 }
 
@@ -149,33 +159,34 @@ void loop() {
     //     Serial.println("The current duty cycle is " + String(inDutyCycle) + ".");
     // }
     
-    // delay(500);
-    long newPosition;
-    double PPS, CPS,CPS_armcycle;
-    newPosition = ArmCycle.read();
+    long newEncoderPosition;
+    double PPS, CPS, armCycleCPS;
 
-    if (newPosition != position) {
+    newEncoderPosition = ArmCycle.read();
+
+    if (newEncoderPosition != encoderPosition) {
+
         // Pulses per second
-        PPS = ((double)newPosition - (double)position)*ONE_SECOND / (double)sinceEncoderUpdate;
+        PPS = ((double)newEncoderPosition - (double)encoderPosition)*ONE_SECOND_MICRO / (double)sinceEncoderUpdate;
         
         // Cycles per second
-        CPS = PPS/PPR;
-        CPS_armcycle = PPS/(PPR*3); // It's roughly 3x encoder per arm cycle revolution
+        CPS = PPS / PPR;
+        armCycleCPS = PPS / (PPR*3); // It's roughly 3x encoder per arm cycle revolution
 
         // update new position
-        position = newPosition;
+        encoderPosition = newEncoderPosition;
 
         // output to terminal
         /*Serial.print("Position = ");
-        Serial.print(newPosition);
+        Serial.print(newEncoderPosition);
         Serial.print(", Time = ");
         Serial.print(sinceEncoderUpdate);
         Serial.print(", PPS = ");
         Serial.print(PPS);
         Serial.print(", CPS = ");
         Serial.print(CPS); */
-        Serial.print(", CPS_armcycle = ");
-        Serial.print(CPS_armcycle);
+        Serial.print("armCycleCPS = ");
+        Serial.print(armCycleCPS);
         Serial.println();
 
         // Reset time between encoder increments
