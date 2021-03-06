@@ -1,16 +1,12 @@
-// INCLUDED LIBRARIES
+// INCLUDE LIBRARIES
 #include <Arduino.h>
+#include <Encoder.h>
 
-// DEFINITIIONS --------------------------------------------------------
+// DEFINITIIONS ---------------------------------------------------------
 #define INDEX_PULSE 21
 #define Encoder_A 23
 #define Encoder_B 22
 #define LED_Pin 13
-#define PPR 400.0                 // (400 pulses per revolution)
-#define ENCODER_READ_TIME 100     // (0.1ms)
-#define VELOCITY_READ_TIME 100000 // (100ms)
-#define VELOCITIES_TO_AVERAGE 20
-#define ONE_SECOND  1000000       // (1sec in microseconds)
 
 /* PIN DEFINITIONS */
 #define ANALOG_REF_PIN PIND3
@@ -27,81 +23,18 @@
 // TIMER OBJECTS -------------------------------------------------------
 IntervalTimer encoderTimer;
 IntervalTimer speedTimer;
+#define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
+#define PPR_ARM_CYCLE PPR*3
+#define ONE_SECOND  1000000.00    // (1sec in microseconds)
 
-// GLOBAL VARIABELS ----------------------------------------------------
+// ENCODER OBJECTS ------------------------------------------------------
+Encoder ArmCycle(Encoder_A, Encoder_B);
 
-// encoder variables
-volatile int lastState, aState, bState;
+// TIMER OBJECTS --------------------------------------------------------
+elapsedMicros sinceEncoderUpdate;
 
-// position / increment variables
-volatile float encoderAngle, degPerPulse;
-
-// velocity variables
-volatile float lastAngle, angularVelocity, averageVelocity, velocitySum, cyclesPerSecond; 
-volatile float velocityData[VELOCITIES_TO_AVERAGE];
-volatile int averageCount;
-
-// output voltage duty cycle variable
-volatile unsigned char inDutyCycle = 0;
-
-/**
- * @brief Reads the increment or decrement of the encoder signal to adjust
- * the current angle accordingly (using degperpulse). Modifies global variables. (ISR)
- * 
- */
-void GetIncrement() {
-    aState = digitalRead(Encoder_A);
-    bState = digitalRead(Encoder_B);
-
-    // Check for rising edge of A
-    if((aState != lastState) && (aState == HIGH)){
-
-        // Check if B is HIGH or LOW
-        if(bState == LOW){
-            encoderAngle += degPerPulse;  // increment counter
-            digitalWrite(LED_Pin, HIGH);
-        }
-        else {
-            encoderAngle -= degPerPulse;  // decrtement counter
-            digitalWrite(LED_Pin, LOW);
-        }
-  }
-
-  // reset last state
-  lastState = aState;
-}
-
-/**
- * @brief Calculates a new angular velocity for the last 100ms and
- * averages the last 10 values. Modifies global variables. (ISR)
- * 
- */
-void GetSpeed(){
-
-    // Calculate new angular velocity for last 100ms
-    angularVelocity = (encoderAngle - lastAngle) / (0.1); // Change in time = 100ms
-
-    // update last angle with new value
-    lastAngle = encoderAngle;
-
-    // add new velocity to averaging array 
-    velocityData[averageCount] = angularVelocity;
-
-    // determine new array position
-    averageCount ++;
-    if(averageCount >= VELOCITIES_TO_AVERAGE){
-        averageCount = 0;
-    }
-
-    // average velocities in the array
-    for(int i = 0; i < VELOCITIES_TO_AVERAGE; i++){
-        velocitySum += velocityData[i];
-    }
-    averageVelocity = velocitySum / VELOCITIES_TO_AVERAGE;
-    velocitySum = 0; // reset sum for next average
-    
-    cyclesPerSecond = averageVelocity / 360.00;
-}
+// GLOBAL VARIABELS -----------------------------------------------------
+long position  = -999;
 
 /**
  * @brief Sets the duty cycle of the forward or backwards movement pins.
@@ -186,17 +119,6 @@ void setup() {
     pinMode(Encoder_B, INPUT);  // encoder channel B
     pinMode(LED_Pin, OUTPUT);           // on board LED
 
-    // initialize global variables
-    encoderAngle = 0.0;                 // initialize encoder angle
-    lastAngle = 0.0;                    // initialize encoder angle
-    averageCount = 0.0;                 // initialize the average count for velocity
-    lastState = digitalRead(Encoder_A); // get starting state of encoder
-    degPerPulse = 360.0 / PPR;            // calculate deg/pulse from PPR
-
-    // set up interrupt service routines:
-    encoderTimer.begin(GetIncrement, ENCODER_READ_TIME); // (time in microseconds)
-    speedTimer.begin(GetSpeed, VELOCITY_READ_TIME); // (time in microsecond)
-
     // initialize serial communication at 115200 bits per second:
     Serial.begin(115200);
 }
@@ -206,6 +128,7 @@ void setup() {
  * 
  */
 void loop() {
+
     // to write an analog voltage out, we can use
     // analogWrite(uint8_t pin ,int dutyCycle)
     // where dutyCycle is a value from 0 (0%) to 255 (100%)
@@ -227,16 +150,35 @@ void loop() {
     // }
     
     // delay(500);
-    
-    float angle, speed;
+    long newPosition;
+    double PPS, CPS,CPS_armcycle;
+    newPosition = ArmCycle.read();
 
-    noInterrupts(); // disable interrupts to read variables
-    //angle = encoderAngle;
-    speed = cyclesPerSecond;
-    interrupts(); // enable interrupts again
+    if (newPosition != position) {
+        // Pulses per second
+        PPS = ((double)newPosition - (double)position)*ONE_SECOND / (double)sinceEncoderUpdate;
+        
+        // Cycles per second
+        CPS = PPS/PPR;
+        CPS_armcycle = PPS/(PPR*3); // It's roughly 3x encoder per arm cycle revolution
 
-    //Serial.print(angle);
-    //Serial.print(" ");
-    Serial.println(speed);
-    delay(100);
+        // update new position
+        position = newPosition;
+
+        // output to terminal
+        /*Serial.print("Position = ");
+        Serial.print(newPosition);
+        Serial.print(", Time = ");
+        Serial.print(sinceEncoderUpdate);
+        Serial.print(", PPS = ");
+        Serial.print(PPS);
+        Serial.print(", CPS = ");
+        Serial.print(CPS); */
+        Serial.print(", CPS_armcycle = ");
+        Serial.print(CPS_armcycle);
+        Serial.println();
+
+        // Reset time between encoder increments
+        sinceEncoderUpdate = 0;
+    }
 }
