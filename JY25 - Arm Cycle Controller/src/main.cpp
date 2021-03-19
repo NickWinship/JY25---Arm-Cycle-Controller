@@ -118,7 +118,17 @@ void setup() {
     pinMode(JOYSTICK_Y_PIN, OUTPUT);
     
     // set the initial cranking speed to 0
-    SetCrankingSpeedDirection(0, true);
+    //SetCrankingSpeedDirection(0, true);
+
+    // ---- QUICK TEST CODE ----
+
+    /* Set the Right Trigger pin (forward movement) to maximum depression*/
+    SetCrankingSpeedDirection(MAX_DUTY_CYCLE, true);
+
+    /* Set the joystick x-axis to axis-maximum (i.e. holding it fully to the right) */
+    SetJoystickVector(MAX_DUTY_CYCLE, 2);
+
+    // --------------
 
     // output 1.8V out of the analog reference voltage pins
     analogWrite(RT_REF_PIN, MAX_DUTY_CYCLE);
