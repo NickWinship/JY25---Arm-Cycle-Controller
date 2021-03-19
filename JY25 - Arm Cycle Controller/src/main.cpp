@@ -18,8 +18,8 @@
 
 #define LB_PIN PIND6
 #define RB_PIN PIND7
-#define JOYSTICK_X_PIN 8
-#define JOYSTICK_Y_PIN 9
+#define JOYSTICK_X_PIN 9
+#define JOYSTICK_Y_PIN 8
 
 #define MAX_DUTY_CYCLE 65
 #define JOYSTICK_CENTER_DUTY_CYCLE 26
