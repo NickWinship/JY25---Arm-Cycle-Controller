@@ -294,8 +294,13 @@ void loop() {
         isCycleDirectionForward = armCycleCPS < 0 ? false : true;
 
         // calculate the level of trigger depression using the current CPS
-        cyclingDutyCycle = (abs(armCycleCPS) / MAX_CPS) * MAX_DUTY_CYCLE;
-
+        if(armCycleCPS > MAX_CPS) {
+            cyclingDutyCycle = MAX_DUTY_CYCLE;
+        }
+        else {
+            cyclingDutyCycle = (abs(armCycleCPS) / MAX_CPS) * MAX_DUTY_CYCLE;
+        }
+        
         // update new position
         encoderPosition = newEncoderPosition;
 
