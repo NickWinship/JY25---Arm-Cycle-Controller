@@ -30,6 +30,7 @@
 #define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
 #define PPR_ARM_CYCLE PPR*3
 #define ONE_SECOND_MICRO  1000000.00    // (1sec in microseconds)
+#define MAX_CPS 3.0 
 
 // TIMER OBJECTS -------------------------------------------------------
 IntervalTimer encoderTimer;
@@ -71,7 +72,7 @@ void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
  * @brief Set the direction and magnitude of the simulated joystick's movement.
  * 
  * @param dutyCycle The target duty cycle
- * @param direction The joystick direction. Center is 0, left is 1 and right is 2.
+ * @param direction The joystick direction. Center is 0, right is 1 and left is 2.
  */
 void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
     // check whether a valid direction was specified
@@ -118,15 +119,18 @@ void setup() {
     pinMode(JOYSTICK_Y_PIN, OUTPUT);
     
     // set the initial cranking speed to 0
-    //SetCrankingSpeedDirection(0, true);
+    SetCrankingSpeedDirection(0, true);
+
+    // place the joystick in the centre position
+    SetJoystickVector(MAX_DUTY_CYCLE, 0);
 
     // ---- QUICK TEST CODE ----
 
     /* Set the Right Trigger pin (forward movement) to maximum depression*/
-    SetCrankingSpeedDirection(MAX_DUTY_CYCLE, true);
+    //SetCrankingSpeedDirection(MAX_DUTY_CYCLE, true);
 
     /* Set the joystick x-axis to axis-maximum (i.e. holding it fully to the right) */
-    SetJoystickVector(MAX_DUTY_CYCLE, 2);
+    //SetJoystickVector(MAX_DUTY_CYCLE, 2);
 
     // --------------
 
@@ -239,23 +243,10 @@ void loop() {
     // where dutyCycle is a value from 0 (0%) to 255 (100%)
     // Since the teensy outputs 3.3V (https://www.pjrc.com/teensy/techspecs.html), to obtain 1.8V we need D = 0.5454, which would be approx dutyCycle = 139
     
-    // if(Serial.available() > 0) {
-    //     int newDutyCycle;
-
-    //     newDutyCycle = Serial.parseInt();
-
-    //     if(newDutyCycle > 0) {
-    //         inDutyCycle = newDutyCycle > MAX_DUTY_CYCLE ? MAX_DUTY_CYCLE : newDutyCycle;
-    //         Serial.println("You entered " + String(inDutyCycle) + ". Max is " + String(MAX_DUTY_CYCLE) + ".");
-    //         SetCrankingSpeedDirection((unsigned char)inDutyCycle, true);
-    //     }
-    // }
-    // else {
-    //     Serial.println("The current duty cycle is " + String(inDutyCycle) + ".");
-    // }
-    
     long newEncoderPosition;
     double PPS, CPS, armCycleCPS;
+    unsigned char cyclingDutyCycle;
+    bool isCycleDirectionForward;
 
     sensors_event_t a, g, temp;
 
@@ -295,8 +286,23 @@ void loop() {
         CPS = PPS / PPR;
         armCycleCPS = PPS / (PPR*3); // It's roughly 3x encoder per arm cycle revolution
 
+        // ############################ //
+        // ####### CYCLING CODE ####### //
+        // ############################ //
+
+        // determine the cycling direction
+        isCycleDirectionForward = armCycleCPS < 0 ? false : true;
+
+        // calculate the level of trigger depression using the current CPS
+        cyclingDutyCycle = (abs(armCycleCPS) / MAX_CPS) * MAX_DUTY_CYCLE;
+
         // update new position
         encoderPosition = newEncoderPosition;
+
+        // set the duty cycle of the respective pin
+        SetCrankingSpeedDirection(cyclingDutyCycle, isCycleDirectionForward);
+
+        /* ############################ */
 
         // output to terminal
         /*Serial.print("Position = ");
