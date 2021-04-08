@@ -137,9 +137,6 @@ void setup() {
     // initialize serial communication at 115200 bits per second
     Serial.begin(115200);
 
-    while (!Serial)
-        delay(10); // will pause Zero, Leonardo, etc until serial console opens
-
     // attempt to initialize the MPU
     if (!mpu.begin()) {
         Serial.println("Failed to find MPU6050 chip");
@@ -258,6 +255,8 @@ void loop() {
 
     // Set the Joystick steering direction and duty cycle
     SetJoystickVector(steeringDutyCycle, SteeringDirection);
+
+    // Check Serial port for proper functionality:
     /*Serial.print(steeringDutyCycle);
     Serial.print(' ');
     Serial.println(SteeringDirection);*/
@@ -288,6 +287,8 @@ void loop() {
 
         // set the duty cycle of the respective pin
         SetCrankingSpeedDirection(cyclingDutyCycle, isCycleDirectionForward);
+        
+        // Check Serial Port for proper functionality
         /*Serial.print(' ');
         Serial.print(cyclingDutyCycle);
         Serial.print(' ');
