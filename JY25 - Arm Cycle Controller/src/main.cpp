@@ -23,7 +23,6 @@
 
 #define MAX_DUTY_CYCLE 65
 
-/* CONSTANTS */
 #define PPR 192.0              // (48ppr x 4 = 192)(quadrature)
 #define PPR_ARM_CYCLE PPR*3
 #define ONE_SECOND_MICRO  1000000.00    // (1sec in microseconds)
@@ -272,12 +271,6 @@ void loop() {
 
         // set the duty cycle of the respective pin
         SetCrankingSpeedDirection(cyclingDutyCycle, isCycleDirectionForward);
-        
-        // Check Serial Port for proper functionality
-        /*Serial.print(' ');
-        Serial.print(cyclingDutyCycle);
-        Serial.print(' ');
-        Serial.println(isCycleDirectionForward);*/
 
         // Reset time between encoder increments
         sinceEncoderUpdate = 0;
