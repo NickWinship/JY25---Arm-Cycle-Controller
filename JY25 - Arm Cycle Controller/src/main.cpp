@@ -22,12 +22,9 @@
 #define JOYSTICK_Y_PIN 8
 
 #define MAX_DUTY_CYCLE 65
-#define JOYSTICK_CENTER_DUTY_CYCLE 26
-#define JOYSTICK_LEFT_MAX_DUTY_CYCLE 23
-#define JOYSTICK_RIGHT_MIN_DUTY_CYCLE 29
 
 /* CONSTANTS */
-#define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
+#define PPR 192.0              // (48ppr x 4 = 192)(quadrature)
 #define PPR_ARM_CYCLE PPR*3
 #define ONE_SECOND_MICRO  1000000.00    // (1sec in microseconds)
 #define MAX_CPS 3.0 
@@ -80,19 +77,21 @@ void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
     if(dutyCycle > MAX_DUTY_CYCLE) 
         dutyCycle = MAX_DUTY_CYCLE;
 
-    // set the duty cycle according to the direction specified
-    //CENTERED
+    // set the duty cycle according to the direction specified:
+
+    // CENTERED
     if(direction == 0) {
         analogWrite(JOYSTICK_X_PIN, 0);
         analogWrite(JOYSTICK_Y_PIN, 0);
     }
 
-    //RIGHT
+    // RIGHT
     else if(direction == 1) {
         analogWrite(JOYSTICK_X_PIN, (int)dutyCycle);
         analogWrite(JOYSTICK_Y_PIN, 0);
     }
 
+    // LEFT
     else {
         analogWrite(JOYSTICK_X_PIN, 0);
         analogWrite(JOYSTICK_Y_PIN, (int)dutyCycle);
@@ -210,7 +209,6 @@ void setup() {
         delay(100);
     }
 
-    
 }
 
 /**
@@ -220,12 +218,11 @@ void setup() {
 void loop() {
     
     long newEncoderPosition;
-    double PPS, CPS, armCycleCPS;
+    double PPS, armCycleCPS;
     unsigned char cyclingDutyCycle;
     bool isCycleDirectionForward;
     unsigned char steeringDutyCycle;
     unsigned char SteeringDirection;
-    double y_rotation;
 
     sensors_event_t a, g, temp;
 
@@ -275,6 +272,12 @@ void loop() {
 
         // set the duty cycle of the respective pin
         SetCrankingSpeedDirection(cyclingDutyCycle, isCycleDirectionForward);
+        
+        // Check Serial Port for proper functionality
+        /*Serial.print(' ');
+        Serial.print(cyclingDutyCycle);
+        Serial.print(' ');
+        Serial.println(isCycleDirectionForward);*/
 
         // Reset time between encoder increments
         sinceEncoderUpdate = 0;
