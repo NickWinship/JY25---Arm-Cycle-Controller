@@ -16,29 +16,24 @@
 #define LT_REF_PIN PIND4
 #define JOYSTICK_REF_PIN PIND5
 
-#define LB_PIN PIND6
-#define RB_PIN PIND7
-#define JOYSTICK_X_PIN 8
-#define JOYSTICK_Y_PIN 9
+#define LB_PIN PIND7
+#define RB_PIN PIND6
+#define JOYSTICK_X_PIN 9
+#define JOYSTICK_Y_PIN 8
 
 #define MAX_DUTY_CYCLE 65
-#define JOYSTICK_CENTER_DUTY_CYCLE 26
-#define JOYSTICK_LEFT_MAX_DUTY_CYCLE 23
-#define JOYSTICK_RIGHT_MIN_DUTY_CYCLE 29
 
-/* CONSTANTS */
-#define PPR 192.0              // (48ppr x 4 = 192)(96ppr x 4 = 384)(quadrature)
+#define PPR 192.0              // (48ppr x 4 = 192)(quadrature)
 #define PPR_ARM_CYCLE PPR*3
 #define ONE_SECOND_MICRO  1000000.00    // (1sec in microseconds)
-
-// TIMER OBJECTS -------------------------------------------------------
-IntervalTimer encoderTimer;
-IntervalTimer speedTimer;
+#define MAX_CPS 3.0 
+#define MAX_TILT 5.0
 
 // ENCODER OBJECTS ------------------------------------------------------
 Encoder ArmCycle(ENCODER_PIN_A, ENCODER_PIN_B);
 elapsedMicros sinceEncoderUpdate;
 
+// IMU OBJECTS ----------------------------------------------------------
 Adafruit_MPU6050 mpu;
 
 // GLOBAL VARIABLES -----------------------------------------------------
@@ -71,7 +66,7 @@ void SetCrankingSpeedDirection(unsigned char dutyCycle, bool isForward = true) {
  * @brief Set the direction and magnitude of the simulated joystick's movement.
  * 
  * @param dutyCycle The target duty cycle
- * @param direction The joystick direction. Center is 0, left is 1 and right is 2.
+ * @param direction The joystick direction. Center is 0, right is 1 and left is 2.
  */
 void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
     // check whether a valid direction was specified
@@ -81,23 +76,24 @@ void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
     if(dutyCycle > MAX_DUTY_CYCLE) 
         dutyCycle = MAX_DUTY_CYCLE;
 
-    // set the duty cycle according to the direction specified
-    if(direction == 0) {
-        analogWrite(JOYSTICK_X_PIN, (int)JOYSTICK_CENTER_DUTY_CYCLE);
-    }
-    else if(direction == 1) {
-        // enforce the upper bound of the joystick x-axis left voltage range
-        if(dutyCycle > JOYSTICK_LEFT_MAX_DUTY_CYCLE) 
-            dutyCycle = JOYSTICK_LEFT_MAX_DUTY_CYCLE;
+    // set the duty cycle according to the direction specified:
 
-        analogWrite(JOYSTICK_X_PIN, (int)dutyCycle);
+    // CENTERED
+    if(direction == 0) {
+        analogWrite(JOYSTICK_X_PIN, 0);
+        analogWrite(JOYSTICK_Y_PIN, 0);
     }
+
+    // RIGHT
+    else if(direction == 1) {
+        analogWrite(JOYSTICK_X_PIN, (int)dutyCycle);
+        analogWrite(JOYSTICK_Y_PIN, 0);
+    }
+
+    // LEFT
     else {
-        // enforce the lower bound of the
-        if(dutyCycle < JOYSTICK_RIGHT_MIN_DUTY_CYCLE)
-            dutyCycle = JOYSTICK_RIGHT_MIN_DUTY_CYCLE;
-        
-        analogWrite(JOYSTICK_X_PIN, dutyCycle);
+        analogWrite(JOYSTICK_X_PIN, 0);
+        analogWrite(JOYSTICK_Y_PIN, (int)dutyCycle);
     }
 }
 
@@ -120,14 +116,17 @@ void setup() {
     // set the initial cranking speed to 0
     SetCrankingSpeedDirection(0, true);
 
+    // place the joystick in the centre position
+    SetJoystickVector(0, 0);
+
     // output 1.8V out of the analog reference voltage pins
     analogWrite(RT_REF_PIN, MAX_DUTY_CYCLE);
     analogWrite(LT_REF_PIN, MAX_DUTY_CYCLE);
     analogWrite(JOYSTICK_REF_PIN, MAX_DUTY_CYCLE);
 
     // put the the joystick in the center position
-    analogWrite(JOYSTICK_X_PIN, JOYSTICK_CENTER_DUTY_CYCLE);
-    analogWrite(JOYSTICK_Y_PIN, JOYSTICK_CENTER_DUTY_CYCLE);
+    analogWrite(JOYSTICK_X_PIN, 0);
+    analogWrite(JOYSTICK_Y_PIN, 0);
 
     // set Teensy 4.0 pins
     pinMode(ENCODER_PIN_A, INPUT);  // encoder channel A
@@ -137,16 +136,10 @@ void setup() {
     // initialize serial communication at 115200 bits per second
     Serial.begin(115200);
 
-    while (!Serial)
-        delay(10); // will pause Zero, Leonardo, etc until serial console opens
-
     // attempt to initialize the MPU
     if (!mpu.begin()) {
         Serial.println("Failed to find MPU6050 chip");
 
-        // while (1) {
-        //     delay(10);
-        // }
     }
     else {
         Serial.println("MPU6050 Found!");
@@ -215,7 +208,6 @@ void setup() {
         delay(100);
     }
 
-    
 }
 
 /**
@@ -223,57 +215,41 @@ void setup() {
  * 
  */
 void loop() {
-
-    // to write an analog voltage out, we can use
-    // analogWrite(uint8_t pin ,int dutyCycle)
-    // where dutyCycle is a value from 0 (0%) to 255 (100%)
-    // Since the teensy outputs 3.3V (https://www.pjrc.com/teensy/techspecs.html), to obtain 1.8V we need D = 0.5454, which would be approx dutyCycle = 139
-    
-    // if(Serial.available() > 0) {
-    //     int newDutyCycle;
-
-    //     newDutyCycle = Serial.parseInt();
-
-    //     if(newDutyCycle > 0) {
-    //         inDutyCycle = newDutyCycle > MAX_DUTY_CYCLE ? MAX_DUTY_CYCLE : newDutyCycle;
-    //         Serial.println("You entered " + String(inDutyCycle) + ". Max is " + String(MAX_DUTY_CYCLE) + ".");
-    //         SetCrankingSpeedDirection((unsigned char)inDutyCycle, true);
-    //     }
-    // }
-    // else {
-    //     Serial.println("The current duty cycle is " + String(inDutyCycle) + ".");
-    // }
     
     long newEncoderPosition;
-    double PPS, CPS, armCycleCPS;
+    double PPS, armCycleCPS;
+    unsigned char cyclingDutyCycle;
+    bool isCycleDirectionForward;
+    unsigned char steeringDutyCycle;
+    unsigned char SteeringDirection;
 
     sensors_event_t a, g, temp;
 
     mpu.getEvent(&a, &g, &temp);
 
-    // print out MPU readings
-    Serial.print("Acceleration X: ");
-    Serial.print(a.acceleration.x);
-    Serial.print(", Y: ");
-    Serial.print(a.acceleration.y);
-    Serial.print(", Z: ");
-    Serial.print(a.acceleration.z);
-    Serial.println(" m/s^2");
+    // calculate the duty cycle and direction of the joystick based on steering position
+    // RIGHT
+    if(a.acceleration.y < -1){
+        SteeringDirection = 1;
+        steeringDutyCycle = (abs(a.acceleration.y) / MAX_TILT) * MAX_DUTY_CYCLE;
+    }
 
-    Serial.print("Rotation X: ");
-    Serial.print(g.gyro.x);
-    Serial.print(", Y: ");
-    Serial.print(g.gyro.y);
-    Serial.print(", Z: ");
-    Serial.print(g.gyro.z);
-    Serial.println(" rad/s");
+    // LEFT
+    else if(a.acceleration.y > 1){
+        SteeringDirection = 2;
+        steeringDutyCycle = (abs(a.acceleration.y) / MAX_TILT) * MAX_DUTY_CYCLE;
+    }
 
-    Serial.print("Temperature: ");
-    Serial.print(temp.temperature);
-    Serial.println(" degC");
+    // CENTER
+    else{
+        SteeringDirection = 0;
+        steeringDutyCycle = 0;
+    }
 
-    Serial.println("");
+    // output voltage and direction representing joystick position to controller
+    SetJoystickVector(steeringDutyCycle, SteeringDirection);
 
+    // read the encoder position
     newEncoderPosition = ArmCycle.read();
 
     if (newEncoderPosition != encoderPosition) {
@@ -281,29 +257,23 @@ void loop() {
         // Pulses per second
         PPS = ((double)newEncoderPosition - (double)encoderPosition)*ONE_SECOND_MICRO / (double)sinceEncoderUpdate;
         
-        // Cycles per second
-        CPS = PPS / PPR;
+        // calculate the speed in cycles per second
         armCycleCPS = PPS / (PPR*3); // It's roughly 3x encoder per arm cycle revolution
+
+        // determine the cycling direction
+        isCycleDirectionForward = armCycleCPS < 0 ? false : true;
+
+        // calculate the level of trigger depression using the current CPS
+        cyclingDutyCycle = (abs(armCycleCPS) / MAX_CPS) * MAX_DUTY_CYCLE;
 
         // update new position
         encoderPosition = newEncoderPosition;
 
-        // output to terminal
-        /*Serial.print("Position = ");
-        Serial.print(newEncoderPosition);
-        Serial.print(", Time = ");
-        Serial.print(sinceEncoderUpdate);
-        Serial.print(", PPS = ");
-        Serial.print(PPS);
-        Serial.print(", CPS = ");
-        Serial.print(CPS); */
-        Serial.print("armCycleCPS = ");
-        Serial.print(armCycleCPS);
-        Serial.println();
+        // set the duty cycle of the respective pin
+        SetCrankingSpeedDirection(cyclingDutyCycle, isCycleDirectionForward);
 
         // Reset time between encoder increments
         sinceEncoderUpdate = 0;
     }
 
-    delay(500);
 }
