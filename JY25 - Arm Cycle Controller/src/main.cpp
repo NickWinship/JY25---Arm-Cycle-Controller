@@ -18,8 +18,8 @@
 
 #define LB_PIN PIND7
 #define RB_PIN PIND6
-#define JOYSTICK_X_PIN 9
-#define JOYSTICK_Y_PIN 8
+#define JOYSTICK_RIGHT 9
+#define JOYSTICK_LEFT 8
 
 #define MAX_DUTY_CYCLE 65
 
@@ -80,20 +80,20 @@ void SetJoystickVector(unsigned char dutyCycle, unsigned char direction = 0) {
 
     // CENTERED
     if(direction == 0) {
-        analogWrite(JOYSTICK_X_PIN, 0);
-        analogWrite(JOYSTICK_Y_PIN, 0);
+        analogWrite(JOYSTICK_RIGHT, 0);
+        analogWrite(JOYSTICK_LEFT, 0);
     }
 
     // RIGHT
     else if(direction == 1) {
-        analogWrite(JOYSTICK_X_PIN, (int)dutyCycle);
-        analogWrite(JOYSTICK_Y_PIN, 0);
+        analogWrite(JOYSTICK_RIGHT, (int)dutyCycle);
+        analogWrite(JOYSTICK_LEFT, 0);
     }
 
     // LEFT
     else {
-        analogWrite(JOYSTICK_X_PIN, 0);
-        analogWrite(JOYSTICK_Y_PIN, (int)dutyCycle);
+        analogWrite(JOYSTICK_RIGHT, 0);
+        analogWrite(JOYSTICK_LEFT, (int)dutyCycle);
     }
 }
 
@@ -110,8 +110,8 @@ void setup() {
 
     pinMode(RB_PIN, OUTPUT);
     pinMode(LB_PIN, OUTPUT);
-    pinMode(JOYSTICK_X_PIN, OUTPUT);
-    pinMode(JOYSTICK_Y_PIN, OUTPUT);
+    pinMode(JOYSTICK_RIGHT, OUTPUT);
+    pinMode(JOYSTICK_LEFT, OUTPUT);
     
     // set the initial cranking speed to 0
     SetCrankingSpeedDirection(0, true);
@@ -125,8 +125,8 @@ void setup() {
     analogWrite(JOYSTICK_REF_PIN, MAX_DUTY_CYCLE);
 
     // put the the joystick in the center position
-    analogWrite(JOYSTICK_X_PIN, 0);
-    analogWrite(JOYSTICK_Y_PIN, 0);
+    analogWrite(JOYSTICK_RIGHT, 0);
+    analogWrite(JOYSTICK_LEFT, 0);
 
     // set Teensy 4.0 pins
     pinMode(ENCODER_PIN_A, INPUT);  // encoder channel A
