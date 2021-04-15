@@ -9,10 +9,26 @@ Individuals with physical disabilities often have limited options to be physical
 
 With the ongoing COVID-19 situation and the initial closure of PARC, it was clear that there was a need for a new home-based exercise device for individuals with SCIs. The goal of this Capstone project, was to develop an Arm Cycle Controller, compatible with the Xbox adaptive controller for Xbox One Series consoles and Windows 10 PCs. The final product is aimed at bringing an inexpensive and engaging exercise experience into the end user’s home, one that can foster community through online engagement. 
 
-## Project Links
-Project Instructabels: https://www.instructables.com/How-to-Build-Your-Xbox-One-Arm-Cycle-Adaptive-Cont/
+## Compatibility
+| Device | Version | Additional Information|
+|--------|---------|-----------------------|
+|Xbox Console| One Series | |
+| PC | Windows 10.0 | |
 
-Project Video: https://www.youtube.com/watch?v=MWBfiwAXUjg
+## Download
+| Resrouce | Version | Format | Link |
+|----------|---------|--------|------|
+| PCB Files |
+| Firmware |
+| PCB Housing |
+| MPU6050 Housing |
+| Encoder Mount |
+
+## Resources
+| Resrouce | Link |
+|----------|------|
+| Project Instrucable| https://www.instructables.com/How-to-Build-Your-Xbox-One-Arm-Cycle-Adaptive-Cont/ |
+|Project Video | https://www.youtube.com/watch?v=MWBfiwAXUjg |
 
 ## Contributers
 ***Clients/Sponsers:***
@@ -22,7 +38,7 @@ Project Video: https://www.youtube.com/watch?v=MWBfiwAXUjg
   <li>Microsoft [https://www.microsoft.com/en-us/accessibility]</li>
 </ul>
 
-***Capstone students:***
+***Capstone Students:***
 <ul>
   <li>Scott Beaulieu [nicholassjbeaulieu@protonmail.com]</li>
   <li>Edward Luo [luohaoubc@gmail.com]</li>
